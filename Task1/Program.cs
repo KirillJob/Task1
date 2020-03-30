@@ -13,9 +13,7 @@ namespace Task1
     {
         static void Main(string[] args)
         {
-            string text = string.Empty;
-            int numTestBlock;
-            Processing processing = new Processing();
+            string fileName = string.Empty;
 
             //Проверка передаваемых аргументов
             if (args.Length != 1)
@@ -24,6 +22,27 @@ namespace Task1
                 Console.ReadKey();
                 return;
             }
+
+            fileName = args[0];
+
+            InputFile inputFile = new InputFile(fileName);
+            try
+            {
+                inputFile.Start(); //TODO: Реализовать метод
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Ошибка: {0}", e);
+            }
+
+
+
+
+
+            string text = string.Empty;
+            int numTestBlock;
+            Processing processing = new Processing();
+
 
             text = processing.GetFileContent(args[0]);
             

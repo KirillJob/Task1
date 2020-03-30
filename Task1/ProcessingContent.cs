@@ -3,34 +3,96 @@ using System.Collections.Generic;
 
 namespace Task1
 {
-    class Support
+    class ProcessingContent
     {
+        //Указатель для парсинг контента. По умолчанию 1 (1ая пустая строка файла контента)
+        int pointer = 1;
+        string[] splitContent = null;
+
+        public ProcessingContent(string[] splitContent)
+        {
+            this.splitContent = splitContent;
+        }
+
         /// <summary>
-        /// Поиск целого положительного числа, в строке не допустимы посторонние символы
+        /// Преобразование строки в целое положительное число. Строка должна содержать только цифры.
         /// </summary>
         /// <param name="s">Строка для обработки</param>
         /// <returns></returns>
-        internal int SearchNumber(string s)
+        internal int GetNumberInUpperRow()
         {
             string number = string.Empty;
-            
-            //Если хотя бы один символ в строке не цифра, опустошаем number
-            foreach (char ch in s.ToCharArray())
+            int outNum;
+
+            if (string.IsNullOrEmpty(splitContent[0]))
             {
+                Exception e = new Exception("Пустая строка. Ожидалось целое положительное число.");
+                throw e;
+            }
+
+            foreach (char ch in splitContent[0].ToCharArray())
+            {
+                //проверка, что все символы в строке цифровые
                 if (char.IsDigit(ch))
                     number += ch.ToString();
                 else
                 {
-                    number = string.Empty;
-                    break;
+                    Exception e = new Exception("В строке найден не цифровой символ");
+                    throw e;
+                    //number = string.Empty;
+                    //break;
                 }
             }  
             
-            if (!string.IsNullOrEmpty(number))
-                return Convert.ToInt32(number);
+            try
+            {
+               outNum = Convert.ToInt32(number);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            //if (!string.IsNullOrEmpty(number))
+            //    return Convert.ToInt32(number);
+            //else
+            //    return 0;
+
+            if (outNum == 0)
+            {
+                Exception e = new Exception("Число равно нулю. Ожидалось целое положительное число.");
+                throw e;
+            }
             else
-                return 0;
+                return outNum;
         }
+
+        internal string[] SearchNextTestBlock()
+        {
+            ProcessingContent sup = new ProcessingContent();
+            int startP = sup.SearchStartPointTestBlock(content, enterPoint);
+            int finishP = sup.SearchFinishPointTestBlock(content, enterPoint);
+            if (startP != 0 & finishP != 0)
+            {
+                enterPoint = finishP + 1; //установка указателя на пустую строку между тестовыми блоками
+                int arrSize = finishP - startP + 1; // +1 для захвата всех строчкек тестового блока
+                string[] arr = new string[arrSize];
+                Array.Copy(content, startP, arr, 0, arrSize);
+                return arr;
+            }
+            return null;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         private bool IsRowLetter(string s)
         {
@@ -131,7 +193,7 @@ namespace Task1
             {
                 if (i + 1 != content.Length) //Проверка на последнюю строку
                 {
-                    if (SearchNumber(content[i]) != 0 & IsRowLetter(content[i + 1]))
+                    if (GetNumber(content[i]) != 0 & IsRowLetter(content[i + 1]))
                     {
                         point = i;
                         break;

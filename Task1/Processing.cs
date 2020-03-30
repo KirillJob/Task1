@@ -12,33 +12,33 @@ namespace Task1
         /// </summary>
         /// <param name="filename">Имя файла</param>
         /// <returns></returns>
-        internal string GetFileContent(string filename)
-        {
-            string str = null;
-            try
-            {
-                StreamReader sr = new StreamReader(filename);
-                str = sr.ReadToEnd();
-                sr.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Ошибка чтения файла: " + e.Message);
-            }
-            return str;
-        }
+        //internal string GetFileContent(string filename)
+        //{
+        //    string str = null;
+        //    try
+        //    {
+        //        StreamReader sr = new StreamReader(filename);
+        //        str = sr.ReadToEnd();
+        //        sr.Close();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine("Ошибка чтения файла: " + e.Message);
+        //    }
+        //    return str;
+        //}
 
         /// <summary>
         /// Получаем количество тестовых блоков
         /// </summary>
         /// <param name="s">Строка в которой указано кол-во</param>
         /// <returns></returns>
-        internal int GetNumTestBlock(string s)
-        {
-            Support sup = new Support();
-            int numTestBlock = sup.SearchNumber(s);
-            return numTestBlock;
-        }
+        //internal int GetNumTestBlock(string s)
+        //{
+        //    ProcessingContent sup = new ProcessingContent();
+        //    int numTestBlock = sup.GetNumber(s);
+        //    return numTestBlock;
+        //}
 
         /// <summary>
         /// Получаем массив строк очередного тестового блока
@@ -47,7 +47,7 @@ namespace Task1
         /// <returns></returns>
         internal string[] GetNextTestBlock(string[] content)
         {
-            Support sup = new Support();
+            ProcessingContent sup = new ProcessingContent();
             int startP = sup.SearchStartPointTestBlock(content,enterPoint);
             int finishP = sup.SearchFinishPointTestBlock(content,enterPoint);
             if (startP != 0 & finishP != 0)
@@ -68,8 +68,8 @@ namespace Task1
         /// <returns></returns>
         internal string[] GetWinners(string[] testBlock)
         {
-            Support sup = new Support();
-            int numCondidate = sup.SearchNumber(testBlock[0]);
+            ProcessingContent sup = new ProcessingContent();
+            int numCondidate = sup.GetNumber(testBlock[0]);
 
             //Проверка на кол-во кондидатов (условия задачи)
             if (numCondidate == 0 || numCondidate > 20)
