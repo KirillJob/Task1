@@ -33,7 +33,12 @@ namespace Task1
             }
         }
 
-        private string[] GetContent(string fileName)
+        private void StartRegularElections(TestBlock testBlock)
+        {
+            testBlock.StartElections();
+        }
+
+        private string[] GetContent(string fileName) //TODO: надо ли передовать параметры или можно напрямую обратиться к полю?
         {
             string s = string.Empty;
             string[] content = null;
@@ -64,16 +69,10 @@ namespace Task1
 
             for (int i = 0; i < numTestBlocks; i++)
             {
-                TestBlock regTestBlock = Processing.GetBlockFromContent(ref enterPoint); //TODO: Создать метод который возвращает экземпляр своего класса
+                TestBlock regTestBlock = Processing.GetBlockFromContent(content, ref enterPoint); 
                 testBlocks.Add(regTestBlock); 
             }
             return testBlocks;
         }
-
-        private void StartRegularElections (TestBlock testBlock)
-        {
-
-        }
-
     }
 }

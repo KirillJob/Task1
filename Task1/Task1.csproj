@@ -48,7 +48,6 @@
     <Compile Include="InputFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="classToDel.cs" />
     <Compile Include="ProcessingContent.cs" />
     <Compile Include="TestBlock.cs" />
   </ItemGroup>

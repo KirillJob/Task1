@@ -8,15 +8,26 @@ namespace Task1
 {
     class Candidate
     {
-        //string _name = string.Empty;
-        //bool _isWinner = false;
+        int limLengthName = 80;
 
-        public string Name { get; set; }
+        public string Name { get; }
+        public int Votes { get; set; }
         public bool IsWinner { get; set; }
 
-        public Candidate ()
+        public Candidate (string name)
         {
+            CheckLength(name);
+            Name = name;
             IsWinner = false;
+            Votes = 0;
+        }
+
+        private void CheckLength(string s)
+        {
+            if (s.Length > limLengthName)
+            {
+                throw new Exception("Недопустимая длина имени");
+            }
         }
     }
 }
