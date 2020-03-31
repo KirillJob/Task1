@@ -28,7 +28,7 @@ namespace Task1
             InputFile inputFile = new InputFile(fileName);
             try
             {
-                inputFile.Start(); //TODO: Реализовать метод
+                inputFile.Start();
             }
             catch (Exception e)
             {
@@ -39,13 +39,18 @@ namespace Task1
 
 
 
+
+
+
+
+
             string text = string.Empty;
             int numTestBlock;
-            Processing processing = new Processing();
+            classToDel processing = new classToDel();
 
 
             text = processing.GetFileContent(args[0]);
-            
+
             //Проверка на пустоту
             if (string.IsNullOrEmpty(text))
             {
@@ -82,13 +87,17 @@ namespace Task1
             for (int i = 0; i < testBlock.Length; i++)
             {
                 string[] winner = processing.GetWinners(testBlock[i]);
-                
+
                 if (winner == null)
-                    Console.WriteLine("Входные данные тестового блока номер {0} ошибочны", i+1); //+1 для понимания на каком блоке посыпался 
+                {
+                    Console.WriteLine("Входные данные тестового блока номер {0} ошибочны", i + 1); //+1 для понимания на каком блоке посыпался 
+                }
                 else
                 {
                     for (int j = 0; j < winner.Length; j++)
+                    {
                         Console.WriteLine(winner[j]); //имя победителя
+                    }
                 }
                 Console.WriteLine("\r\n");
             }

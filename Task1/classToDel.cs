@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Task1
 {
-    class Processing
+    class classToDel
     {
         private static int enterPoint = 1;
 

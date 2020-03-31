@@ -3,46 +3,32 @@ using System.Collections.Generic;
 
 namespace Task1
 {
-    class ProcessingContent
+    static class ProcessingContent
     {
         //Указатель для парсинг контента. По умолчанию 1 (1ая пустая строка файла контента)
-        int pointer = 1;
-        string[] splitContent = null;
+        //int pointer = 1;
+        //string[] splitContent = null;
 
-        public ProcessingContent(string[] splitContent)
-        {
-            this.splitContent = splitContent;
-        }
+        //public ProcessingContent(string[] splitContent)
+        //{
+        //    this.splitContent = splitContent;
+        //}
 
         /// <summary>
         /// Преобразование строки в целое положительное число. Строка должна содержать только цифры.
         /// </summary>
         /// <param name="s">Строка для обработки</param>
         /// <returns></returns>
-        internal int GetNumberInUpperRow()
+        public static int ConvertStrToInt(string s)
         {
             string number = string.Empty;
             int outNum;
 
-            if (string.IsNullOrEmpty(splitContent[0]))
-            {
-                Exception e = new Exception("Пустая строка. Ожидалось целое положительное число.");
-                throw e;
-            }
+            CheckNullOrEmpty(s);
+            CheckIsRowNum(s);
 
-            foreach (char ch in splitContent[0].ToCharArray())
-            {
-                //проверка, что все символы в строке цифровые
-                if (char.IsDigit(ch))
-                    number += ch.ToString();
-                else
-                {
-                    Exception e = new Exception("В строке найден не цифровой символ");
-                    throw e;
-                    //number = string.Empty;
-                    //break;
-                }
-            }  
+            foreach (char ch in s.ToCharArray())
+                number += ch.ToString(); 
             
             try
             {
@@ -52,19 +38,60 @@ namespace Task1
             {
                 throw e;
             }
-            //if (!string.IsNullOrEmpty(number))
-            //    return Convert.ToInt32(number);
-            //else
-            //    return 0;
+            
+            CheckZero(outNum);
+            return outNum;
+        }
 
-            if (outNum == 0)
+        public static int[] ConvertStrToIntArr(string s)
+        {
+            //TODO: Реализовать конвертацию строки в интовый масив
+            return new int[0];
+        }
+
+        public static void CheckNullOrEmpty(string s)
+        {
+            if (string.IsNullOrEmpty(s))
+            {
+                Exception e = new Exception("Пустая строка. Ожидалось целое положительное число.");
+                throw e;
+            }
+        }
+
+        private static void CheckZero(int i)
+        {
+            if (i == 0)
             {
                 Exception e = new Exception("Число равно нулю. Ожидалось целое положительное число.");
                 throw e;
             }
-            else
-                return outNum;
         }
+
+        private static void CheckIsRowNum(string s)
+        {
+            foreach (char ch in s.ToCharArray())
+            {
+                if (!char.IsDigit(ch))
+                {
+                    Exception e = new Exception("В строке найден не цифровой символ. Ожидалось целое положительное число.");
+                    throw e;
+                }
+            }
+        }
+
+        public static TestBlock GetBlockFromContent(ref int enterPoint)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
 
         internal string[] SearchNextTestBlock()
         {

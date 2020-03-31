@@ -4,22 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Processing = Task1.ProcessingContent;
 
 
 namespace Task1
 {
     class InputFile
     {
-        string _fileName = string.Empty;
-        string _content  = string.Empty;
-
-        public string FileName { get; }
-        public string Content  { get; }
+        private string fileName;
+        private string[] content;
+        private List<TestBlock> testBlocks = null;
 
         public InputFile(string fileName)
         {
-            _fileName = fileName;
-            _content  = GetContent(FileName);
+            this.fileName = fileName;
+            content = GetContent(this.fileName);
+            testBlocks = GetTestBlock(content);
         }
 
         /// <summary>
@@ -27,18 +27,19 @@ namespace Task1
         /// </summary>
         public void Start()
         {
-            //TODO: Разбить контент на строковые блоки
-            //TODO: Создать из строковых блоков лист элементом которого является TestBlock
-            //TODO: В каждом тестовом блоке запустить определение победителя/ей 
+            foreach (TestBlock testBlock in testBlocks)
+            {
+                StartRegularElections(testBlock);
+            }
         }
 
-        string GetContent(string fn)
+        private string[] GetContent(string fileName)
         {
             string s = string.Empty;
-            // Получаем контент
+            string[] content = null;
             try
             {
-                StreamReader sr = new StreamReader(fn);
+                StreamReader sr = new StreamReader(fileName);
                 s = sr.ReadToEnd();
                 sr.Close();
             }
@@ -47,48 +48,32 @@ namespace Task1
                 throw e;
             }
 
-            //Проверяем на пустоту
-            if (string.IsNullOrEmpty(s))
-            {
-                Exception e = new Exception("Файл пуст");
-                throw e;
-            }
-            return s;
+            Processing.CheckNullOrEmpty(s);
+            content = s.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+            return content;
         }
 
-        List<TestBlock> GetTestBlock(string content)
+        private List<TestBlock> GetTestBlock(string[] content)
         {
-            List<TestBlock>   testBlocks = null;
-            ProcessingContent processing;
-            
-            string[] splitContent = content.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            processing = new ProcessingContent(splitContent);
+            int numTestBlocks;
+            int enterPoint = 1;
+            List<TestBlock> testBlocks = null;
 
-            int numTestBlock = processing.GetNumberInUpperRow();
+            numTestBlocks = Processing.ConvertStrToInt(content[0]);
 
-            for (int i = 0; i < numTestBlock; i++)
+            for (int i = 0; i < numTestBlocks; i++)
             {
-                //TODO: Найти очередной кусок тестовый блок в предоставленном контенте
-                string[] regTestBlockInContent = processing.SearchNextTestBlock();
-                TestBlock regTestBlock = TestBlock.Creator(regTestBlockInContent);
-                testBlocks.Add(regTestBlock); //TODO: Создать метод который возвращает экземпляр своего класса
+                TestBlock regTestBlock = Processing.GetBlockFromContent(ref enterPoint); //TODO: Создать метод который возвращает экземпляр своего класса
+                testBlocks.Add(regTestBlock); 
             }
             return testBlocks;
-
-            //TODO: перебор контента и создание сущностей TestBlock
-
-            //Поиск всех тестовых блоков и разбитие их на массивы
-            string[][] testBlock = new string[numTestBlock][];
-            for (int i = 0; i < numTestBlock; i++)
-            {
-                testBlock[i] = processing.GetNextTestBlock(content);
-                if (testBlock[i] == null)
-                {
-                    Console.WriteLine("Ошибка входных данных");
-                    Console.ReadKey();
-                    return;
-                }
-            }
         }
+
+        private void StartRegularElections (TestBlock testBlock)
+        {
+
+        }
+
     }
 }
