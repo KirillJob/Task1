@@ -13,13 +13,17 @@ namespace Task1
         public string Name { get; }
         public int Votes { get; set; }
         public bool IsWinner { get; set; }
+        public bool IsIntermedWin { get; set; }
+        public int NumInBulletin { get; }
 
-        public Candidate (string name)
+        public Candidate (string name, int numInBulletin)
         {
             CheckLength(name);
             Name = name;
-            IsWinner = false;
             Votes = 0;
+            IsWinner = false;
+            IsIntermedWin = false;
+            NumInBulletin = numInBulletin;
         }
 
         private void CheckLength(string s)

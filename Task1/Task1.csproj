@@ -43,13 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Candidate.cs" />
-    <Compile Include="Elector.cs" />
-    <Compile Include="InputFile.cs" />
+    <Compile Include="Entity\Candidate.cs" />
+    <Compile Include="Entity\Elector.cs" />
+    <Compile Include="Entity\InputFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProcessingContent.cs" />
-    <Compile Include="TestBlock.cs" />
+    <Compile Include="Entity\TestBlock.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

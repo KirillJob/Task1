@@ -36,8 +36,13 @@ namespace Task1
 
         public static int[] ConvertStrToIntArr(string s)
         {
-            //TODO: Реализовать конвертацию строки в интовый масив
-            return new int[0];
+            string[] strArr = s.Split(new string[] { " " }, StringSplitOptions.None);
+            int[] intArr = new int[strArr.Length];
+            for (int i = 0; i < strArr.Length; i++)
+            {
+                intArr[i] = ConvertStrToInt(strArr[i]);
+            }
+            return intArr;
         }
 
         public static void CheckNullOrEmpty(string s)
@@ -62,7 +67,8 @@ namespace Task1
             {
                 if (!char.IsDigit(ch))
                 {
-                    throw new Exception("В строке найден не цифровой символ. Ожидалось целое положительное число.");
+                    Exception e = new Exception("В строке найден не цифровой символ. Ожидалось целое положительное число.");
+                    throw e;
                 }
             }
         }
@@ -114,12 +120,10 @@ namespace Task1
                 case Point.Finish:
                     while (i < content.Length & i + 1 != content.Length)
                     {
-                        if (IsRowNum(content[i]) & string.IsNullOrEmpty(content[i + 1]))
-                        {
-                            point = i;
-                            break;
-                        }
+                        if (IsRowNum(content[i]) & string.IsNullOrEmpty(content[i + 1])) break;
+                        
                         i++;
+                        point = i;
                     }
                     break;
             }

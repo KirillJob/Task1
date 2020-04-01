@@ -17,15 +17,16 @@ namespace Task1
             }
 
             fileName = args[0];
-
-            InputFile inputFile = new InputFile(fileName);
             try
             {
+                InputFile inputFile = new InputFile(fileName);
                 inputFile.Start();
+                Console.ReadLine();
             }
             catch (Exception e)
             {
-                Console.WriteLine("Ошибка: {0}", e);
+                Console.WriteLine("Ошибка: {0}", e.Message);
+                Console.ReadLine();
             }
         }
     }

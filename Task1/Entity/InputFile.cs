@@ -13,7 +13,7 @@ namespace Task1
     {
         private string fileName;
         private string[] content;
-        private List<TestBlock> testBlocks = null;
+        private List<TestBlock> testBlocks = new List<TestBlock>();
 
         public InputFile(string fileName)
         {
@@ -63,7 +63,7 @@ namespace Task1
         {
             int numTestBlocks;
             int enterPoint = 1;
-            List<TestBlock> testBlocks = null;
+            List<TestBlock> testBlocks = new List<TestBlock>();
 
             numTestBlocks = Processing.ConvertStrToInt(content[0]);
 
